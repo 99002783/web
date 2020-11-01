@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        body
+        {
+          text-align: center;
+        }
+    </style>
+     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function searchUser()
+            {
+                $("div").hide(2000);
+                $("div:eq(3)").show(2000);
+                $("table").find("tr:gt(0)").remove();
+
+                let id = document.getElementById("bookId").value;
+                let temp = url + "/" + id;
+                $.get(url, (data)=>{
+                    let array = JSON.parse(data);
+                    for (const user of array) {
+                        if(book.bookId==id){
+                        //   document.getElementById("print").value="<label>userId:</label>"+user.userName;
+                        const row = `<tr><td>${book.bookId}</td><td>${user.bookTitle}</td><td>${book.Author}</td>
+                            <td>${user.userPhone}</td></tr>`
+                        $("#hel").append(row);
+                        }
+                     
+                    }
+                    
+                    // $(".edit").click(findRecord);  
+                    // $(".delete").click(deleteRecord);             
+                })
+                
+                $("table").find("tr:gt(0)").remove();
+            }
+
+            function init(){
+                $("button:first").click(searchUser);
+            }
+            $(document).ready(init);
+
+
+    </script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Search Books</h1>
+    <div>
+        <form action="http://localhost:3000/details">
+            View all Books <input type="submit">
+        </form>
+    </div>
+    <br/>
+    <div>
+        <form action="http://localhost:3000/searchByTitle">
+            Search Books by Title <input type="text" name="sTitle">
+            <input type="submit">
+        </form>
+    </div><br/>
+    <div>
+        <form action="http://localhost:3000/searchByAuthor">
+            Search Books by Author <input type="text" name="sAuthor">
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="section">
+        <p>Product ID : <input id="bookId"/></p>
+        <p><button>search</button></p>
+        <table border="1" id="hel">
+            <tr>
+                <th>Book ID</th>
+                <th>Book Title</th>
+                <th>Book Author</th>
+
+            </tr>
+        </table>
+    </div>
+    
+</body>
+</html>
